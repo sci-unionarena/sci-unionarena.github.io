@@ -63,11 +63,11 @@ h2{font-size:16px}
  .controls{gap:12px;padding:12px 0}
  .blood-slots{margin:9px 0;gap:4px}
  .blood-slot{aspect-ratio:.8;border-radius:6px;font-size:10px}
-}</style>
+}.hero-tools{display:flex;align-items:center;justify-content:space-between;gap:12px}.reset{color:#29477d;background:white}.reset:hover{background:#e4edff}@media(max-width:650px){.hero-tools{width:100%;margin-top:4px}}</style>
 </head>
 <body>
   <main class="wrap">
-    <header class="hero"><h1>血区 SP 概率计算器</h1><p>50 张牌 · 4 张 SP · 7 张血区牌</p></header>
+    <header class="hero"><h1>血区 SP 概率计算器</h1><div class="hero-tools"><p>50 张牌 · 4 张 SP · 7 张血区牌</p><button class="action reset" id="reset" type="button">重置本局</button></div></header>
     <div class="board"><section class="card result" aria-labelledby="result-title" aria-live="polite">
           <h2 id="result-title">血区未翻开牌中至少有 1 张 SP</h2>
           <div class="prob" id="probability">—</div><div class="fraction" id="fraction">等待输入</div>
@@ -87,7 +87,7 @@ h2{font-size:16px}
           <div class="draw-actions"><button class="action special" id="drawSpecial" type="button">✦ 抽到 SP</button><button class="action ordinary" id="drawOrdinary" type="button">抽到普通牌</button></div>
           <div class="button-row"><button class="action undo" id="undo" type="button">撤销上次抽牌</button><span class="draw-limit" id="drawLimit">牌堆还可抽 36 张</span></div>
           <div class="warn" id="warning" role="status"></div>
-        </div></div><section class="card history"><div class="history-head"><h2>游戏抽牌记录</h2><button class="action undo" id="reset" type="button">全部重置</button></div><ol class="history-list" id="history" aria-label="牌堆抽牌记录"></ol></section><details class="method"><summary>计算方式与假设</summary><p>50 张牌中有 4 张 SP。起手拿 7 张并记录其中 SP 数量为 h。随后血区有 7 张，牌堆还有 36 张。</p><p>牌堆抽了 d 张，其中 s_d 张 SP；血区翻了 b 张，其中 s_b 张 SP。未看牌池有 N=43-d-b 张，其中有 R=4-h-s_d-s_b 张 SP；血区还剩 B=7-b 张未翻开。</p><div class="formula">血区未翻开牌含至少 1 张 SP = 1 − C(N − R, B) / C(N, B)</div><p>概率只针对血区尚未翻开的牌。已翻开的血区牌不计入目标，但其牌面会作为已知信息从未看牌池中扣除。</p></details></main>
+        </div></div><section class="card history"><div class="history-head"><h2>游戏抽牌记录</h2></div><ol class="history-list" id="history" aria-label="牌堆抽牌记录"></ol></section><details class="method"><summary>计算方式与假设</summary><p>50 张牌中有 4 张 SP。起手拿 7 张并记录其中 SP 数量为 h。随后血区有 7 张，牌堆还有 36 张。</p><p>牌堆抽了 d 张，其中 s_d 张 SP；血区翻了 b 张，其中 s_b 张 SP。未看牌池有 N=43-d-b 张，其中有 R=4-h-s_d-s_b 张 SP；血区还剩 B=7-b 张未翻开。</p><div class="formula">血区未翻开牌含至少 1 张 SP = 1 − C(N − R, B) / C(N, B)</div><p>概率只针对血区尚未翻开的牌。已翻开的血区牌不计入目标，但其牌面会作为已知信息从未看牌池中扣除。</p></details></main>
   <script>
     (()=>{
       const hand=document.getElementById('handCount'), historyEl=document.getElementById('history'), warning=document.getElementById('warning'), bloodSlots=document.getElementById('bloodSlots');
